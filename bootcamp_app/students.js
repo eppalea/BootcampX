@@ -36,10 +36,19 @@ const limit = process.argv[3] || 5;
 // Store all potentially malicious values in an array. 
 const values = [`%${cohortName}%`, limit];
 
-pool.query(queryString, values, (err, res) => {
-  if (err) {
-    console.log(err.stack)
-  } else {
+// callback
+// pool.query(queryString, values, (err, res) => {
+//   if (err) {
+//     console.log(err.stack)
+//   } else {
+//     console.log(res.rows[0])
+//   }
+// });
+
+// promise
+pool
+  .query(queryString, values)
+  .then(res => {
     console.log(res.rows[0])
-  }
-});
+  })
+  .catch(e => console.log(e.stack))
