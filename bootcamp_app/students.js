@@ -6,3 +6,13 @@ const pool = new Pool({
   host: 'localhost',
   database: 'bootcampx'
 });
+
+pool.query(`
+SELECT id, name, cohort_id
+FROM students
+LIMIT 5;
+`)
+.then(res => {
+  console.log(res.rows);
+})
+.catch(err => console.log('query error', err.stack));
